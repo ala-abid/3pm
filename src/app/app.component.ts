@@ -1,5 +1,6 @@
 import { Component,OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {AuthService} from './services/auth.service';
 
 
 
@@ -17,9 +18,9 @@ export interface InputModel {
 })
 export class AppComponent implements OnInit{
   title = 'app';
-  constructor(private http: HttpClient){}
+  constructor(private http: HttpClient, private authService: AuthService){}
   ngOnInit(){
-    this.http.get<Array<InputModel>>('http://localhost:4200/assets/logininputs/input1.json')
-      .subscribe((data: any) => this.title = data.familyName);
+    this.authService.login('testusr', 'testpw')
+      .subscribe((data: any) => this.title = data.token);
   }
 }
