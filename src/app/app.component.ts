@@ -22,5 +22,7 @@ export class AppComponent implements OnInit{
   ngOnInit(){
     this.authService.login('testusr', 'testpw')
       .subscribe((data: any) => this.title = data.token);
+
+    this.authService.getUserInfo();
   }
 }

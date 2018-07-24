@@ -4,14 +4,11 @@ import {UserModel} from './user-model';
 import {throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-
-  userModel = new UserModel('','','','','','');
-
+  userInfo: UserModel;
   token: string;
   refreshToken: string;
 
@@ -37,8 +34,17 @@ export class AuthService {
   }
 
   getUserInfo(){
-
-    return this.userModel;
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type':  'application/json',
+        'Authorization': this.token
+      })
+    };
+    const url = 'https://reqres.in/api/users/2';
+    // add httpOptions as argument
+    this.http.get(url).pipe(catchError(this.handleError))
+                                 .subscribe((data:any) => {this.userInfo = data.data;
+                                   console.log(this.userInfo);});
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -55,7 +61,7 @@ export class AuthService {
     // return an observable with a user-facing error message
     return throwError(
       'Something bad happened; please try again later.');
-  };
+  }
 
 
 
