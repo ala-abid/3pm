@@ -9,7 +9,7 @@ import {catchError} from 'rxjs/operators';
 })
 export class AuthService {
   userInfo: UserModel;
-  token: string;
+  token: string = 'my-token';
   refreshToken: string;
 
   constructor(private http: HttpClient) { }
@@ -41,10 +41,8 @@ export class AuthService {
       })
     };
     const url = 'https://reqres.in/api/users/2';
-    // add httpOptions as argument
-    this.http.get(url).pipe(catchError(this.handleError))
-                                 .subscribe((data:any) => {this.userInfo = data.data;
-                                   console.log(this.userInfo);});
+    this.http.get(url, httpOptions).pipe(catchError(this.handleError));
+                                 // .subscribe((data:any) => {this.userInfo = data.data;console.log(this.userInfo);});
   }
 
   private handleError(error: HttpErrorResponse) {
