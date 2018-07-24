@@ -20,6 +20,6 @@ export class AppComponent implements OnInit{
   constructor(private http: HttpClient){}
   ngOnInit(){
     this.http.get<Array<InputModel>>('http://localhost:4200/assets/logininputs/input1.json')
-      .subscribe(data => this.title = (JSON.parse(JSON.stringify(data))).familyName);
+      .subscribe((data: any) => this.title = data.familyName);
   }
 }

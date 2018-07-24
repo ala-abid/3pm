@@ -7,17 +7,25 @@ import {UserModel} from './user-model';
 })
 export class AuthService {
 
-  usrModel = new UserModel('','','','','','');
+  userModel = new UserModel('','','','','','');
+
   token: string;
   refreshToken: string;
 
   constructor(private http: HttpClient) { }
 
-  login(){
+  login(email: string, password: string){
 
   }
 
   getNewToken(){
 
   }
+
+  getUserInfo(){
+
+    return this.userModel;
+  }
+
+
 }
