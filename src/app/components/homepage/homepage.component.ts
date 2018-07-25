@@ -11,7 +11,10 @@ export class HomepageComponent implements OnInit {
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
-
+    // console.log(this.authService.userInfo.mobile);
+  }
+  show(){
+    return (this.authService.userInfo == null ) ? 'null' : JSON.stringify(this.authService.userInfo);
   }
 
 }

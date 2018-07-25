@@ -41,10 +41,7 @@ export class AuthService {
       })
     };
     const url = 'http://www.mocky.io/v2/5b583a7b3000004900fe4dfb';
-    this.http.get(url, httpOptions).pipe(catchError(this.handleError));
-                                 // .subscribe((data:any) => {this.userInfo = data.data;console.log(this.userInfo);});
-    // add httpOptions as argument
-  return   this.http.get(url).pipe(catchError(this.handleError)) ;
+    return this.http.get(url, httpOptions).pipe(catchError(this.handleError));
   }
 
   private handleError(error: HttpErrorResponse) {

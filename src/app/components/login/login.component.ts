@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
 import {UserModel} from '../../services/user-model';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit {
   email: string;
   password: string;
   message: string ;
-  constructor(private authService: AuthService) {  }
+  constructor(private authService: AuthService , private router: Router) {  }
 
   ngOnInit() {}
 
@@ -24,6 +25,7 @@ export class LoginComponent implements OnInit {
         this.authService.token = data.result.token ;
         this.authService.refreshToken = data.result.refresh_token ;
         this.getUserInfo();
+        this.router.navigate(['/home']);
       },
       (error: any) => {
 
@@ -31,7 +33,6 @@ export class LoginComponent implements OnInit {
         // ridirect to error page
       }
     );
-    this.authService.getUserInfo();
   }
 
   /**
@@ -42,8 +43,8 @@ export class LoginComponent implements OnInit {
       (data: any) => {
         this.message = data.message ;
         this.authService.userInfo = data.result.user ;
+        console.log('dddd', this.authService.userInfo);
 
-        console.log(this.authService.userInfo);
       } ,
       (error: any) => {
 
