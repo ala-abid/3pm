@@ -24,7 +24,7 @@ export class AuthService {
       })
     };
     let loginInput = {'email': email, 'password': password};
-    const url = 'https://reqres.in/api/login';
+    const url = 'http://www.mocky.io/v2/5b583a28300000fd05fe4df9';                                              // change to our API URL
     return this.http.post(url, loginInput , httpOptions).pipe(catchError(this.handleError));
   }
 
@@ -40,7 +40,7 @@ export class AuthService {
         'Authorization': this.token
       })
     };
-    const url = 'https://reqres.in/api/users/2';
+    const url = 'http://www.mocky.io/v2/5b583a7b3000004900fe4dfb';
     this.http.get(url, httpOptions).pipe(catchError(this.handleError));
                                  // .subscribe((data:any) => {this.userInfo = data.data;console.log(this.userInfo);});
     // add httpOptions as argument
