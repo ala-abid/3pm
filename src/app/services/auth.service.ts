@@ -3,16 +3,17 @@ import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {UserModel} from './user-model';
 import {throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
+import {LocalStorageService} from './local-storage.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
   userInfo: UserModel;
-  token: string = 'my-token';
+  token = 'my-token';
   refreshToken: string;
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient , private localStorage: LocalStorageService) { }
 
   /*
   USER LOGIN
@@ -60,6 +61,17 @@ export class AuthService {
       'Something bad happened; please try again later.');
   }
 
-
+   cacheValues()
+   {
+     this.localStorage.set('token',this.token) ;
+     this.localStorage.set('refresh_token',this.refreshToken) ;
+     this.localStorage.set('userinfo',this.userInfo) ;
+   }
+   readValues()
+   {
+     this.token = this.localStorage.get('token','No_Token') ;
+     this.refreshToken = this.localStorage.get('refresh_token','No_REfresh_Token') ;
+     this.userInfo = this.localStorage.get('userinfo',null) ;
+   }
 
 }

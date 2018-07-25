@@ -13,8 +13,9 @@ export class HomepageComponent implements OnInit {
   ngOnInit() {
     // console.log(this.authService.userInfo.mobile);
   }
-  show(){
-    return (this.authService.userInfo == null ) ? 'null' : JSON.stringify(this.authService.userInfo);
+  show() {
+    this.authService.readValues() ;
+    return  JSON.stringify(this.authService.userInfo) +  JSON.stringify(this.authService.token + JSON.stringify(this.authService.refreshToken) ;
   }
 
 }

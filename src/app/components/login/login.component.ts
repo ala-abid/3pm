@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
       (data: any) => {
         this.authService.token = data.result.token ;
         this.authService.refreshToken = data.result.refresh_token ;
+        this.authService.cacheValues();
         this.getUserInfo();
         this.router.navigate(['/home']);
       },
@@ -43,8 +44,7 @@ export class LoginComponent implements OnInit {
       (data: any) => {
         this.message = data.message ;
         this.authService.userInfo = data.result.user ;
-        console.log('dddd', this.authService.userInfo);
-
+        this.authService.cacheValues();
       } ,
       (error: any) => {
 
