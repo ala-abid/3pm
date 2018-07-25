@@ -9,7 +9,7 @@ import {catchError} from 'rxjs/operators';
 })
 export class AuthService {
   userInfo: UserModel;
-  token: string;
+  token: string = 'my-token';
   refreshToken: string;
 
   constructor(private http: HttpClient) { }
@@ -23,17 +23,17 @@ export class AuthService {
         'Content-Type':  'application/json',
       })
     };
-    const loginInput = {'email': email, 'password': password};
+    let loginInput = {'email': email, 'password': password};
     const url = 'https://reqres.in/api/login';
     return this.http.post(url, loginInput , httpOptions).pipe(catchError(this.handleError));
   }
 
 
-  getNewToken() {
+  getNewToken(){
 
   }
 
-  getUserInfo() {
+  getUserInfo(){
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -41,6 +41,8 @@ export class AuthService {
       })
     };
     const url = 'https://reqres.in/api/users/2';
+    this.http.get(url, httpOptions).pipe(catchError(this.handleError));
+                                 // .subscribe((data:any) => {this.userInfo = data.data;console.log(this.userInfo);});
     // add httpOptions as argument
   return   this.http.get(url).pipe(catchError(this.handleError)) ;
   }
@@ -58,7 +60,7 @@ export class AuthService {
     }
     // return an observable with a user-facing error message
     return throwError(
-      'Something bad happened; please try again later.' + JSON.stringify(error));
+      'Something bad happened; please try again later.');
   }
 
 
