@@ -23,17 +23,17 @@ export class AuthService {
         'Content-Type':  'application/json',
       })
     };
-    let loginInput = {'email': email, 'password': password};
+    const loginInput = {'email': email, 'password': password};
     const url = 'https://reqres.in/api/login';
     return this.http.post(url, loginInput , httpOptions).pipe(catchError(this.handleError));
   }
 
 
-  getNewToken(){
+  getNewToken() {
 
   }
 
-  getUserInfo(){
+  getUserInfo() {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
@@ -42,9 +42,7 @@ export class AuthService {
     };
     const url = 'https://reqres.in/api/users/2';
     // add httpOptions as argument
-    this.http.get(url).pipe(catchError(this.handleError))
-                                 .subscribe((data:any) => {this.userInfo = data.data;
-                                   console.log(this.userInfo);});
+  return   this.http.get(url).pipe(catchError(this.handleError)) ;
   }
 
   private handleError(error: HttpErrorResponse) {
@@ -60,7 +58,7 @@ export class AuthService {
     }
     // return an observable with a user-facing error message
     return throwError(
-      'Something bad happened; please try again later.');
+      'Something bad happened; please try again later.' + JSON.stringify(error));
   }
 
 

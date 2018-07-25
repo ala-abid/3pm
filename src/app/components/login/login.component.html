@@ -10,11 +10,11 @@
 
               (ngSubmit)="login()" #loginForm="ngForm"
         >
-          <input type="text" class="form-control" placeholder="Email" required autofocus
+          <input name="Email input" type="text" class="form-control" placeholder="Email" required autofocus
                  [(ngModel)]="email"
                  #emailField="ngModel"
           >
-          <input type="password" class="form-control" placeholder="Password" required
+          <input  name="Password Input" type="password" class="form-control" placeholder="Password" required
           [(ngModel)]="password"
                  #passordField="ngModel"
           >
