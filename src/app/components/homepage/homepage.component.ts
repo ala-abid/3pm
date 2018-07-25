@@ -15,7 +15,7 @@ export class HomepageComponent implements OnInit {
   }
   show() {
     this.authService.readValues() ;
-    return  JSON.stringify(this.authService.userInfo) +  JSON.stringify(this.authService.token + JSON.stringify(this.authService.refreshToken) ;
+    return this.authService.userInfo.mobile + '<br>'  + this.authService.token + this.authService.refreshToken ;
   }
 
 }
