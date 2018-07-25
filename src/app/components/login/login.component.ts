@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Router} from '@angular/router';
 import {AuthService} from '../../services/auth.service';
 import {UserModel} from '../../services/user-model';
 
@@ -14,7 +15,7 @@ export class LoginComponent implements OnInit {
  password: string;
  code: number;
  message: string ;
-  constructor(private authService: AuthService) {  }
+  constructor(private authService: AuthService ,private router: Router) {  }
 
   ngOnInit() {
   }
@@ -29,7 +30,9 @@ export class LoginComponent implements OnInit {
          this.authService.token = data.result.token ;
           this.authService.refreshToken = data.result.refresh_token ;
           this.getUserInfo();
-         },
+     this.router.navigate(['home']);
+
+   },
    (error: any) => {
 
     console.log('Loging in=====>', error) ;
