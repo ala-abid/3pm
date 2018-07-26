@@ -1,6 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {AuthService} from '../../services/auth.service';
-import {UserModel} from '../../services/user-model';
 import {Router} from '@angular/router';
 
 @Component({
@@ -27,11 +26,6 @@ export class LoginComponent implements OnInit {
         this.authService.cacheValues();
         this.getUserInfo();
         this.router.navigate(['/home']);
-      },
-      (error: any) => {
-
-        console.log('Loging in=====>', error) ;
-        // ridirect to error page
       }
     );
   }
@@ -45,13 +39,7 @@ export class LoginComponent implements OnInit {
         this.message = data.message ;
         this.authService.userInfo = data.result.user ;
         this.authService.cacheValues();
-      } ,
-      (error: any) => {
-
-        console.log('Getting User Info====>', error) ;
-        // ridirect to error page
       }
-
     ) ;
   }
 }
