@@ -4,6 +4,7 @@ import {UserModel} from './user-model';
 import {throwError} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 import {LocalStorageService} from './local-storage.service';
+import {baseUrl, loginUrl, userUrl} from '../AppConfig';
 
 @Injectable({
   providedIn: 'root'
@@ -24,24 +25,24 @@ export class AuthService {
         'Content-Type':  'application/json',
       })
     };
-    let loginInput = {'email': email, 'password': password};
-    const url = 'http://www.mocky.io/v2/5b583a28300000fd05fe4df9';                                              // change to our API URL
+    const loginInput = {'email': email, 'password': password};
+    const url = baseUrl + loginUrl;
     return this.http.post(url, loginInput , httpOptions).pipe(catchError(this.handleError));
   }
 
 
-  getNewToken(){
+  getNewToken() {
 
   }
 
-  getUserInfo(){
+  getUserInfo() {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json',
         'Authorization': this.token
       })
     };
-    const url = 'http://www.mocky.io/v2/5b583a7b3000004900fe4dfb';
+    const url = baseUrl + userUrl;
     return this.http.get(url, httpOptions).pipe(catchError(this.handleError));
   }
 
@@ -61,17 +62,15 @@ export class AuthService {
       'Something bad happened; please try again later.');
   }
 
-   cacheValues()
-   {
-     this.localStorage.set('token',this.token) ;
-     this.localStorage.set('refresh_token',this.refreshToken) ;
-     this.localStorage.set('userinfo',this.userInfo) ;
+   cacheValues() {
+     this.localStorage.set('token', this.token) ;
+     this.localStorage.set('refresh_token', this.refreshToken) ;
+     this.localStorage.set('userinfo', this.userInfo) ;
    }
-   readValues()
-   {
-     this.token = this.localStorage.get('token','No_Token') ;
-     this.refreshToken = this.localStorage.get('refresh_token','No_REfresh_Token') ;
-     this.userInfo = this.localStorage.get('userinfo',null) ;
+   readValues() {
+     this.token = this.localStorage.get('token', 'No_Token') ;
+     this.refreshToken = this.localStorage.get('refresh_token', 'No_REfresh_Token') ;
+     this.userInfo = this.localStorage.get('userinfo', null) ;
    }
 
 }

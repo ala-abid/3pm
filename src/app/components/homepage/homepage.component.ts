@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
+import {UserModel} from '../../services/user-model';
 
 @Component({
   selector: 'app-homepage',
@@ -7,6 +8,9 @@ import {AuthService} from '../../services/auth.service';
   styleUrls: ['./homepage.component.css']
 })
 export class HomepageComponent implements OnInit {
+  useinfo: UserModel ;
+  token: string ;
+  refreshtoken: string ;
 
   constructor(private authService: AuthService) { }
 
@@ -15,7 +19,9 @@ export class HomepageComponent implements OnInit {
   }
   show() {
     this.authService.readValues() ;
-    return this.authService.userInfo.mobile + '<br>'  + this.authService.token + this.authService.refreshToken ;
+     this.useinfo = this.authService.userInfo;
+      this.token = this.authService.token ;
+      this.refreshtoken = this.authService.refreshToken ;
   }
 
 }

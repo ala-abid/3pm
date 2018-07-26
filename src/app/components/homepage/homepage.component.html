@@ -1,4 +1,27 @@
-<p>
-  homepage works!
+
   {{show()}}
-</p>
+  <h1>
+    {{useinfo.id}}
+  </h1>
+
+  <table id="example" class="table table-striped table-bordered" style="width;" >
+    <tbody>
+    <tr>
+      <td>{{useinfo.first_name}}</td>
+      <td>{{useinfo.last_name}}</td>
+      <td>{{useinfo.email}}</td>
+      <td>{{useinfo.mobile}}</td>
+      <td>{{useinfo.id}}</td>
+    </tr>
+    <tr>
+      <td colspan="5">
+        {{token}}
+      </td>
+    </tr>
+    <tr>
+      <td colspan="5">
+        {{refreshtoken}}
+      </td>
+    </tr>
+    </tbody>
+  </table>
