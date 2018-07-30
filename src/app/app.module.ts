@@ -2,8 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
-import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
-import {AuthService} from './services/auth.service';
+import {HttpClientModule} from '@angular/common/http';
+import {AuthGuardService, AuthService} from './services/auth.service';
 import { LoginComponent } from './components/login/login.component';
 import {FormsModule} from '@angular/forms';
 import {RouterModule, Routes} from '@angular/router';
@@ -17,7 +17,7 @@ import {InterceptorService} from './services/interceptor.service';
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'error', component: ErrorPageComponent },
-  { path: 'home', component: HomepageComponent },
+  { path: 'home', component: HomepageComponent , canActivate: [AuthGuardService] },
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 
@@ -34,14 +34,7 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [
-    AuthService,
-    {
-      provide: HTTP_INTERCEPTORS,
-      useClass: InterceptorService,
-      multi: true
-    }
-  ],
+  providers: [AuthService, AuthGuardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

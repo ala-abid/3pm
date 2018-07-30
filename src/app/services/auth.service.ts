@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {UserModel} from './user-model';
 import {LocalStorageService} from './local-storage.service';
-import {baseUrl, loginUrl, userUrl} from '../AppConfig';
+import {baseUrl, loginUrl, refreshTokenUrl, userUrl} from '../AppConfig';
+import {ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot} from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class AuthService {
   token = 'my-token';
   refreshToken: string;
 
-  constructor(private http: HttpClient , private localStorage: LocalStorageService) { }
+  constructor(private http: HttpClient , private localStorage: LocalStorageService , private router: Router) { }
 
   login(email: string, password: string) {
     const loginInput = {'email': email, 'password': password};
@@ -22,6 +23,13 @@ export class AuthService {
 
 
   getNewToken() {
+    const url = baseUrl + refreshTokenUrl;
+    const refToken = this.localStorage.get('refresh_token', 'null') ;
+    return this.http.post(url, null, { headers: refToken}).subscribe(
+      ( data: any) => this.localStorage.set('token', data.result.token) ,
+      (error: HttpErrorResponse) => (error.status === 401) ? this.router.navigate(['/login']):
+        this.router.navigate(['/error'])
+    );
 
   }
 
@@ -41,4 +49,28 @@ export class AuthService {
     this.userInfo = this.localStorage.get('userinfo', null) ;
   }
 
+}
+
+
+@Injectable({
+  providedIn: 'root'
+})
+ export class AuthGuardService implements CanActivate {
+  constructor(
+    private authService: AuthService,
+    private router: Router) {
+  }
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+    if (this.authService.userInfo) {
+      return true;
+    } else {
+      this.router.navigate(['/login'], {
+        queryParams: {
+          return: state.url
+        }
+      });
+      return false;
+    }
+  }
 }

@@ -18,7 +18,6 @@ export class HomepageComponent implements OnInit {
     // console.log(this.authService.userInfo.mobile);
   }
   show() {
-    this.authService.readValues() ;
      this.useinfo = this.authService.userInfo;
       this.token = this.authService.token ;
       this.refreshtoken = this.authService.refreshToken ;

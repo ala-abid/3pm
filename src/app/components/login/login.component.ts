@@ -13,7 +13,11 @@ export class LoginComponent implements OnInit {
   message: string ;
   constructor(private authService: AuthService , private router: Router) {  }
 
-  ngOnInit() {}
+  ngOnInit() {
+     if (this.authService.userInfo != null) {
+       this.router.navigate(['/home']);
+     }
+  }
 
   /**
    * Login Method

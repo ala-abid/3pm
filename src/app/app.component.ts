@@ -20,9 +20,6 @@ export class AppComponent implements OnInit{
   title = 'app';
   constructor(private http: HttpClient, private authService: AuthService){}
   ngOnInit(){
-    this.authService.login('testusr', 'testpw')
-      .subscribe((data: any) => this.title = data.token);
-
-    this.authService.getUserInfo();
+        this.authService.readValues();
   }
 }
