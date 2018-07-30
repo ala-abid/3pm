@@ -29,7 +29,7 @@ export class LoginComponent implements OnInit {
         this.authService.refreshToken = data.result.refresh_token ;
         this.authService.cacheValues();
         this.getUserInfo();
-        this.router.navigate(['/home']);
+
       }
     );
   }
@@ -43,6 +43,7 @@ export class LoginComponent implements OnInit {
         this.message = data.message ;
         this.authService.userInfo = data.result.user ;
         this.authService.cacheValues();
+        this.router.navigate(['/home']);
       }
     ) ;
   }

@@ -34,7 +34,7 @@ const appRoutes: Routes = [
     FormsModule,
     RouterModule.forRoot(appRoutes)
   ],
-  providers: [AuthService, AuthGuardService],
+  providers: [AuthService, AuthGuardService, InterceptorService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
