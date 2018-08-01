@@ -23,17 +23,9 @@ export class AuthService {
 
 
   getNewToken() {
-    const url = baseUrl + refreshTokenUrlError;
+    const url = baseUrl + refreshTokenUrl;
     const refToken = this.localStorage.get('refresh_token', 'null') ;
-    return this.http.post(url, null, { headers: refToken}).subscribe(
-      ( data: any) => this.localStorage.set('token', data.result.token)
-     /* (error: HttpErrorResponse) => {
-        this.clearValues() ;
-                (error.status === 401) ? this.router.navigate(['/login']) :
-          this.router.navigate(['/error']) ;
-      }*/
-    );
-
+    return this.http.post(url, null, { headers: refToken}) ;
   }
 
   getUserInfo() {

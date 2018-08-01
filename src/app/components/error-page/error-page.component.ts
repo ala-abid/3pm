@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../services/auth.service';
+import {HttpClient} from '@angular/common/http';
+import {baseUrl, error401Url, refreshTokenUrlError} from '../../AppConfig';
 
 @Component({
   selector: 'app-error-page',
@@ -8,10 +10,10 @@ import {AuthService} from '../../services/auth.service';
 })
 export class ErrorPageComponent implements OnInit {
 
-  constructor(private authService: AuthService) { }
+  constructor(private authService: AuthService , private http: HttpClient ) { }
 
   ngOnInit() {
-    this.authService.getNewToken() ;
+     this.http.get(baseUrl + error401Url).subscribe() ;
   }
 
 }
