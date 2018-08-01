@@ -10,14 +10,16 @@ import {RouterModule, Routes} from '@angular/router';
 import { ErrorPageComponent } from './components/error-page/error-page.component';
 import { HomepageComponent } from './components/homepage/homepage.component';
 import {InterceptorService} from './services/interceptor.service';
+import { PresalesInputsFormComponent } from './components/presales-inputs-form/presales-inputs-form.component';
 
 
 
 
 const appRoutes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'error', component: ErrorPageComponent },
+  { path: 'error', component: ErrorPageComponent, canActivate: [AuthGuardService] },
   { path: 'home', component: HomepageComponent , canActivate: [AuthGuardService] },
+  { path: 'presalesinputs', component: PresalesInputsFormComponent, canActivate: [AuthGuardService]},
   { path: '', redirectTo: '/login', pathMatch: 'full' }
 ];
 
@@ -27,6 +29,7 @@ const appRoutes: Routes = [
     LoginComponent,
     ErrorPageComponent,
     HomepageComponent,
+    PresalesInputsFormComponent,
      ],
   imports: [
     BrowserModule,
@@ -39,7 +42,6 @@ const appRoutes: Routes = [
       provide: HTTP_INTERCEPTORS,
       useClass: InterceptorService,
       multi: true,
-      deps: [AuthService]
     }
 
   ],
